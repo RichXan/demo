@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option go_package = "pay/proto";
+
+package pay;
+
+message PaymentRequest {
+    uint64 amount = 1;
+    string out_trade_no = 2;
+}
+
+message PaymentResponse {
+    string transaction_id = 1;
+    string out_trade_no = 2;
+    string status = 3;
+}
+
+service PaymentService {
+    rpc ProcessPayment(PaymentRequest) returns (PaymentResponse);
+}
+
