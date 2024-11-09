@@ -1,0 +1,47 @@
+# system config
+system:
+  name: "project_name" # project name | app name
+  version: "0.0.1"
+  description: "project_description"
+  env: "uat" # uat | pat | fat | sit
+  port: 3024
+  http:
+    read_timeout: 10 # 读取超时时间
+    write_timeout: 10 # 写入超时时间
+    idle_timeout: 30 # 空闲超时时间
+
+# log config
+log:
+  level: "debug" # trace | debug | info | warn | error | fatal | panic
+  is_console: true # true | false
+  directory: "/data/logs"
+  max_size: 100 # MB
+  max_backups: 10
+
+# database config
+database:
+  path: "127.0.0.1:3306" # 多人协作时建议用同一个数据库 eg: 47.243.203.232:3306
+  database: "project_name"
+  config: 'charset=utf8mb4&parseTime=true&loc=Asia%2fShanghai'
+  user: "root"
+  password: "root"
+  max_idle_conns: 10
+  max_open_conns: 100
+  max_life_seconds: 60
+  is_console: true
+
+redis:
+  sentinels: ""  #非哨兵模式时，配置多个地址表示集群模式
+  db: 0
+  master:   #有配置master表示哨兵模式
+  password: ""
+
+smtp:
+  host: ""
+  port: 465
+  from: ""
+  user: ""
+  password: ""
+  to_emails:
+    - ""
+    - ""

@@ -8,7 +8,7 @@ import (
 	"net"
 	"time"
 
-	pb "srpc/pay/proto"
+	pb "xrpc/pay/proto"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
