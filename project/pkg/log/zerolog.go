@@ -17,13 +17,13 @@ func newZeroLogger(cfg LoggerConfig) zerolog.Logger {
 
 	level, err := zerolog.ParseLevel(cfg.Level)
 	if err != nil {
-		panic(fmt.Errorf("Fatal error, init logger error: Parse log level error %s \n", err.Error()))
+		panic(fmt.Errorf("fatal error, init logger error: Parse log level error %s ", err.Error()))
 	}
 	zerolog.SetGlobalLevel(level)
 
 	var writers []io.Writer
 	writers = append(writers, os.Stdout)
-	if !cfg.OnlyConsole {
+	if cfg.SaveLoggerAsFile {
 		writers = append(writers, newRollingFile(cfg.Directory, cfg.ProjectName, cfg.LoggerName, cfg.MaxSize, cfg.MaxBackups))
 	}
 	mw := io.MultiWriter(writers...)
@@ -34,25 +34,24 @@ func newZeroLogger(cfg LoggerConfig) zerolog.Logger {
 // 创建文件
 func newRollingFile(dir, projectName, loggerName string, maxSize, maxBackups int) io.Writer {
 	if dir == "" || projectName == "" || loggerName == "" {
-		panic(fmt.Errorf("Fatal error, init logger error: log director or project name is nil \n"))
+		panic(fmt.Errorf("fatal error, init logger error: log director or project name is nil "))
 	}
+
 	loggerNameLen := len(loggerName)
 	if loggerName[loggerNameLen-4:loggerNameLen-1] != ".log" {
 		loggerName = loggerName + ".log"
 	}
 
-	filename := path.Join(dir, projectName, loggerName)
-
 	// make sure the log file permission is 644
-	err := utils.SetFileModeWithCreating(filename, fs.FileMode(0644))
-	if err != nil {
-		panic(fmt.Errorf("Fatal error, init logger error: Set log file mode error %s \n", err))
+	filename := path.Join(dir, projectName, loggerName)
+	if err := utils.SetFileModeWithCreating(filename, fs.FileMode(0644)); err != nil {
+		panic(fmt.Errorf("fatal error, init logger error: Set log file mode error %s ", err))
 	}
 
 	return &lumberjack.Logger{
-		Filename:   path.Join(dir, projectName, loggerName), //日志文件
-		MaxBackups: maxBackups,                              //保留旧文件的最大数量
-		MaxSize:    maxSize,                                 //单文件最大容量(单位MB)
+		Filename:   filename,   //日志文件
+		MaxBackups: maxBackups, //保留旧文件的最大数量
+		MaxSize:    maxSize,    //单文件最大容量(单位MB)
 		Compress:   false,
 	}
 }

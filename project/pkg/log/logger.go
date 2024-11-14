@@ -6,11 +6,12 @@ import (
 
 // 打印调用函数时，跳过栈帧的数量
 const ZeroLogEventCallerSkipFrameCount = 2
-const DefaultLoggerName = "common"
+const DefaultLoggerName = "x_logger"
 
 type Logger struct {
 	zeroLoger *zerolog.Logger
 	context   map[string]interface{}
+	Config    LoggerConfig
 }
 
 func (l *Logger) doLogEvent(zeroLogEventFunc func() *zerolog.Event) *zerolog.Event {
@@ -51,5 +52,5 @@ func NewLogger(cfg LoggerConfig) *Logger {
 		cfg.LoggerName = DefaultLoggerName
 	}
 	zl := newZeroLogger(cfg)
-	return &Logger{zeroLoger: &zl}
+	return &Logger{zeroLoger: &zl, Config: cfg}
 }

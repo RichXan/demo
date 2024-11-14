@@ -1,20 +1,29 @@
 # system config
 system:
-  name: "project_name" # project name | app name
+  name: "x_project" # project name | app name
   version: "0.0.1"
   description: "project_description"
   env: "uat" # uat | pat | fat | sit
   port: 3024
   http:
-    read_timeout: 10 # 读取超时时间
-    write_timeout: 10 # 写入超时时间
-    idle_timeout: 30 # 空闲超时时间
+    # 读取超时时间
+    read_timeout: 10
+    # 写入超时时间
+    write_timeout: 10
+    # 空闲超时时间
+    idle_timeout: 30
 
 # log config
 log:
-  level: "debug" # trace | debug | info | warn | error | fatal | panic
-  is_console: true # true | false
-  directory: "/data/logs"
+  # trace | debug | info | warn | error | fatal | panic
+  level: "debug"
+  # true | false
+  save_logger_as_file: true
+  # logger_file_path = directory + project_name + logger_name + .log
+  directory: "./tmp/logs"
+  project_name: "x_project"
+  # 可省略，默认 x_logger
+  logger_name: "x_logger"
   max_size: 100 # MB
   max_backups: 10
 
@@ -31,10 +40,16 @@ database:
   is_console: true
 
 redis:
-  sentinels: ""  #非哨兵模式时，配置多个地址表示集群模式
+  sentinels: "127.0.0.1:6379,127.0.0.1:6380"  #非哨兵模式时，配置多个地址表示集群模式
   db: 0
   master:   #有配置master表示哨兵模式
   password: ""
+
+minio:
+  endpoint: ""
+  bucket: ""
+  access_key: ""
+  secret_key: ""
 
 smtp:
   host: ""

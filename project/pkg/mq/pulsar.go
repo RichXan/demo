@@ -113,12 +113,18 @@ func (p *Pulsar) NewProducer() error {
 func (p *Pulsar) Close() {
 	if p.Sub != nil {
 		p.Sub.Close()
+		p.Sub = nil
+		fmt.Println("pulsar sub closed")
 	}
 	if p.Producer != nil {
 		p.Producer.Close()
+		p.Producer = nil
+		fmt.Println("pulsar producer closed")
 	}
 	if p.Client != nil {
 		p.Client.Close()
+		p.Client = nil
+		fmt.Println("pulsar client closed")
 	}
 }
 

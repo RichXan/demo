@@ -10,13 +10,13 @@ import (
 func TestLogger(t *testing.T) {
 	// 设置测试配置
 	cfg := LoggerConfig{
-		Level:       "debug",
-		Directory:   "../../logs",
-		ProjectName: "test",
-		LoggerName:  "test.log",
-		MaxSize:     10,
-		MaxBackups:  3,
-		OnlyConsole: false,
+		Level:            "debug",
+		Directory:        "../../logs",
+		ProjectName:      "test",
+		LoggerName:       "test.log",
+		MaxSize:          10,
+		MaxBackups:       3,
+		SaveLoggerAsFile: false,
 	}
 
 	// 创建日志实例
@@ -46,8 +46,8 @@ func TestLogger(t *testing.T) {
 	// 测试控制台输出
 	t.Run("Test console writer", func(t *testing.T) {
 		consoleLogger := NewLogger(LoggerConfig{
-			Level:       "debug",
-			OnlyConsole: true,
+			Level:            "debug",
+			SaveLoggerAsFile: false,
 		})
 		consoleLogger.Info().Msg("This is a console message")
 	})
