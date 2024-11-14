@@ -44,3 +44,12 @@ project/
 ├── go.sum                     # Go模块依赖校验文件
 └── Makefile                   # Makefile脚本，用于自动化构建、测试等任务
 
+
+### REST full API 规范
+Handler ： Get() Post() Put() Delete() List()
+api router ： 
+- get ： /v1/users/{user_id}
+- post ： /v1/users
+- put ： /v1/users/{user_id}
+- delete ： /v1/users/{user_id}
+- get list ： /v1/users
