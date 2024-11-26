@@ -7,8 +7,10 @@ import (
 	"time"
 
 	"gorm.io/driver/mysql"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"gorm.io/gorm/schema"
 )
 
 type MysqlConfig struct {
@@ -22,7 +24,7 @@ type MysqlConfig struct {
 	IsConsole   bool   `yaml:"is_console"`
 }
 
-func NewGormDb(mysqlConfig *MysqlConfig) (e *gorm.DB, err error) {
+func NewMysqlGormDb(mysqlConfig *MysqlConfig) (e *gorm.DB, err error) {
 	var (
 		userName    = mysqlConfig.User
 		password    = mysqlConfig.Password
@@ -68,4 +70,14 @@ func NewGormDb(mysqlConfig *MysqlConfig) (e *gorm.DB, err error) {
 			},
 		),
 	})
+}
+
+func NewPostgresGormDbWithDSN(dsn string) (e *gorm.DB, err error) {
+	return gorm.Open(postgres.Open(dsn), &gorm.Config{
+		NamingStrategy: schema.NamingStrategy{
+			SingularTable: true,
+		},
+		Logger: logger.Default.LogMode(logger.Info),
+	},
+	)
 }

@@ -5,6 +5,7 @@ type Config struct {
 	Log      LogConfig      `yaml:"log"`
 	Database DatabaseConfig `yaml:"database"`
 	Redis    RedisConfig    `yaml:"redis"`
+	Minio    MinioConfig    `yaml:"minio"`
 	Smtp     SmtpConfig     `yaml:"smtp"`
 }
 
@@ -24,14 +25,21 @@ type HttpConfig struct {
 }
 
 type LogConfig struct {
-	Level     string `yaml:"level"`
-	IsConsole bool   `yaml:"is_console"`
-	Directory string `yaml:"directory"`
-	MaxSize   int    `yaml:"max_size"`
-	MaxBackup int    `yaml:"max_backups"`
+	Level            string `yaml:"level"`
+	SaveLoggerAsFile bool   `yaml:"save_logger_as_file"`
+	Directory        string `yaml:"directory"`
+	ProjectName      string `yaml:"project_name"`
+	LoggerName       string `yaml:"logger_name"`
+	MaxSize          int    `yaml:"max_size"`
+	MaxBackup        int    `yaml:"max_backups"`
 }
 
 type DatabaseConfig struct {
+	Mysql    MysqlConfig    `yaml:"mysql"`
+	Postgres PostgresConfig `yaml:"postgres"`
+}
+
+type MysqlConfig struct {
 	Path        string `yaml:"path"` // host + port
 	Database    string `yaml:"database"`
 	Config      string `yaml:"config"`
@@ -43,11 +51,29 @@ type DatabaseConfig struct {
 	IsConsole   bool   `yaml:"is_console"`
 }
 
+type PostgresConfig struct {
+	Uri      string `yaml:"uri"`
+	Host     string `yaml:"host"`
+	Port     int    `yaml:"port"`
+	User     string `yaml:"user"`
+	Dbname   string `yaml:"dbname"`
+	Password string `yaml:"password"`
+	SSLMode  string `yaml:"sslmode"`
+	GormDSN  string `yaml:"gormdsn"`
+}
+
 type RedisConfig struct {
 	Sentinels  string `yaml:"sentinels"` //非哨兵模式时，配置多个地址表示集群模式
 	Password   string `yaml:"password"`
 	MasterName string `yaml:"master"` //有配置master表示哨兵模式
 	Db         int    `yaml:"db"`
+}
+
+type MinioConfig struct {
+	Endpoint  string `yaml:"endpoint"`
+	Bucket    string `yaml:"bucket"`
+	AccessKey string `yaml:"access_key"`
+	SecretKey string `yaml:"secret_key"`
 }
 
 type SmtpConfig struct {

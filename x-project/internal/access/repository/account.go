@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"slices"
 	"strings"
-	"xproject/internal/access/entity"
+	"x-project/internal/access/entity"
 
 	"gorm.io/gorm"
 )

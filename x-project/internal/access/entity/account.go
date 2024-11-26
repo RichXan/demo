@@ -8,6 +8,8 @@ import (
 
 type Account struct {
 	AccountId   string    `gorm:"column:accountId;primary_key;default:''" json:"accountId"` // 账户ID
+	Username    string    `gorm:"column:username;default:''" json:"username"`               // 用户名
+	Password    string    `gorm:"column:password;default:''" json:"password"`               // 密码
 	Secret      string    `gorm:"column:secret;default:''" json:"secret"`                   // 密钥
 	Type        int       `gorm:"column:type;default:0" json:"type"`                        // 账户类型 0:管理员 1:普通用户
 	CompanyCode string    `gorm:"column:companyCode;default:''" json:"companyCode"`         // 公司代码

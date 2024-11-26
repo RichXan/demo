@@ -29,18 +29,28 @@ log:
 
 # database config
 database:
-  path: "127.0.0.1:3306" # 多人协作时建议用同一个数据库 eg: 47.243.203.232:3306
-  database: "project_name"
-  config: 'charset=utf8mb4&parseTime=true&loc=Asia%2fShanghai'
-  user: "root"
-  password: "root"
-  max_idle_conns: 10
-  max_open_conns: 100
-  max_life_seconds: 60
-  is_console: true
+  mysql:
+    path: "127.0.0.1:3306" # 多人协作时建议用同一个数据库 eg: 47.243.203.232:3306
+    database: "project_name"
+    config: 'charset=utf8mb4&parseTime=true&loc=Asia%2fShanghai'
+    user: "root"
+    password: "root"
+    max_idle_conns: 10
+    max_open_conns: 100
+    max_life_seconds: 60
+    is_console: true
+  postgres:
+    uri: admin:111111@x-postgres:5432/x-project?sslmode=disable
+    host: x-postgres
+    port: 5432
+    user: admin
+    dbname: x-project
+    password: 111111
+    sslmode: disable
+    dsn: host=x-postgres port=5432 user=admin dbname=x-project password=111111 sslmode=disable TimeZone=UTC
 
 redis:
-  sentinels: "127.0.0.1:6379,127.0.0.1:6380"  #非哨兵模式时，配置多个地址表示集群模式
+  sentinels: "127.0.0.1:6380"  #非哨兵模式时，配置多个地址表示集群模式
   db: 0
   master:   #有配置master表示哨兵模式
   password: ""

@@ -1,20 +1,34 @@
-FROM golang:1.20 AS builder
+FROM registry.cn-hangzhou.aliyuncs.com/golang/golang:1.20 AS builder
 
-RUN cat /etc/issue
-COPY . /opt/
+WORKDIR /app
+COPY . .
 
-WORKDIR /opt
-RUN export GO111MODULE=on
-RUN export GOPROXY=https://goproxy.io
-RUN make
+# 设置 Go 环境
+ENV GO111MODULE=on
+ENV GOPROXY=https://goproxy.cn,direct
 
-FROM ubuntu:latest
+# 构建应用
+RUN go mod download
+RUN go build -o x-project cmd/server/main.go
 
-COPY --from=builder /opt/x-project /bin/
+# 第二阶段：运行
+FROM registry.cn-hangzhou.aliyuncs.com/ubuntu/ubuntu:22.04
 
-RUN mkdir /etc/x-project/
-COPY config/config.yaml /etc/x-project/config.yaml
-WORKDIR /
+# 安装基础工具和证书
+RUN apt-get update && \
+    apt-get install -y ca-certificates tzdata && \
+    rm -rf /var/lib/apt/lists/*
 
-ENTRYPOINT ["/bin/x-project"]
-CMD ["-c", "/etc/x-project/config.yaml", "start"]
+WORKDIR /app
+
+# 从构建阶段复制二进制文件
+COPY --from=builder /app/x-project .
+COPY --from=builder /app/config/config.yml /etc/x-project/config.yml
+
+# 设置时区
+ENV TZ=Asia/Shanghai
+
+EXPOSE 18000
+
+ENTRYPOINT ["/app/x-project"]
+CMD ["-c", "/etc/x-project/config.yml"]

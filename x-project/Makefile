@@ -10,6 +10,7 @@ x64: env
 
 clean:
 	go clean
+	docker-compose down -v
 
 up:
 	docker-compose up -d

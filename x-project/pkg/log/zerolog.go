@@ -6,7 +6,7 @@ import (
 	"io/fs"
 	"os"
 	"path"
-	"xproject/pkg/utils"
+	"x-project/pkg/utils"
 
 	"github.com/rs/zerolog"
 	"gopkg.in/natefinch/lumberjack.v2"

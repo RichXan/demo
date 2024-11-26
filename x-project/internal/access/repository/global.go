@@ -7,9 +7,9 @@ import (
 	"strings"
 	"sync"
 	"time"
-	"xproject/config"
-	"xproject/pkg/db"
-	"xproject/pkg/log"
+	"x-project/config"
+	"x-project/pkg/db"
+	"x-project/pkg/log"
 
 	"github.com/go-redsync/redsync/v4"
 	"github.com/go-redsync/redsync/v4/redis/goredis/v9"
@@ -27,15 +27,15 @@ var (
 
 // IntiData 初始化数据配置及对象
 func IntiData(appConfig config.Config, log *log.Logger) {
-	dataDb, err := db.NewGormDb(&db.MysqlConfig{
-		Path:        appConfig.Database.Path,
-		Database:    appConfig.Database.Database,
-		User:        appConfig.Database.User,
-		Password:    appConfig.Database.Password,
-		MaxOpenConn: appConfig.Database.MaxOpenConn,
-		MaxIdleConn: appConfig.Database.MaxIdleConn,
-		IsConsole:   appConfig.Database.IsConsole,
-		Config:      appConfig.Database.Config,
+	dataDb, err := db.NewMysqlGormDb(&db.MysqlConfig{
+		Path:        appConfig.Database.Mysql.Path,
+		Database:    appConfig.Database.Mysql.Database,
+		User:        appConfig.Database.Mysql.User,
+		Password:    appConfig.Database.Mysql.Password,
+		MaxOpenConn: appConfig.Database.Mysql.MaxOpenConn,
+		MaxIdleConn: appConfig.Database.Mysql.MaxIdleConn,
+		IsConsole:   appConfig.Database.Mysql.IsConsole,
+		Config:      appConfig.Database.Mysql.Config,
 	})
 	logger = log
 	if err != nil {
