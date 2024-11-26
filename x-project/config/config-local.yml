@@ -3,7 +3,7 @@ system:
   name: "x_project" # project name | app name
   version: "0.0.1"
   description: "project_description"
-  env: "uat" # uat | pat | fat | sit
+  env: "uat" # uat(测试环境User Acceptance Test) | pat(预发环境Pre-Acceptance Test) | fat(正式环境Final Acceptance Test) | sit(集成测试环境System Integration Test) | pro(生产环境Production Environment)
   port: 3024
   http:
     # 读取超时时间

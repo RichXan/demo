@@ -1,0 +1,53 @@
+version: '3.3'
+services:
+  x-postgres:
+    image: postgres:14.6
+    container_name: x-postgres
+    restart: always
+    hostname: x-postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 111111
+      POSTGRES_DB: x-project
+    volumes:
+      - ./tmp/postgres:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+
+  x-redis:
+    image: redis:latest
+    container_name: x-redis
+    volumes:
+      - /apps/redis/datadir:/data
+      - /apps/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - /apps/redis/logs:/logs
+    ports:
+      # 使用宿主机的端口映射到容器的端口
+      # 宿主机：容器
+      - 6380:6379
+
+  x-minio:
+    image: 'minio/minio:latest'
+    container_name: x-minio
+    restart: always
+    command: server /data --console-address ":9001" #指定容器中的目录 /data
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    environment:
+      MINIO_ACCESS_KEY: admin #管理后台用户名
+      MINIO_SECRET_KEY: minioadmin #管理后台密码，最小8个字符
+    volumes:
+      - ./tmp/minio/data:/data
+      - "./tmp/minio/minio:/minio"
+      - "./tmp/minio/config:/root/.minio" #映射配置目录
+
+  x-project:
+    image: golang:latest
+    container_name: x-project
+    tty: true
+    command: /bin/bash
+    ports:
+      - 18000:18000
+    volumes:
+      - .:/x-project
