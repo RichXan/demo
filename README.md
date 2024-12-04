@@ -173,7 +173,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-RichXan - [@mmakemoremoney](https://x.com/mmakemoremoney) - email@email_client.com
+RichXan - [@mmakemoremoney](https://x.com/mmakemoremoney) - rich4xan@gmail.com
 
 Project Link: [https://github.com/RichXan/demo](https://github.com/RichXan/demo)
 
