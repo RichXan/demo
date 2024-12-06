@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option go_package = "order/proto";
+
+package order;
+
+message Order {
+    string id = 1;
+    string name = 2;
+    uint64 amount = 3;
+}
+
+message OrderRequest {
+    string id = 1;
+    string name = 2;
+    uint64 amount = 3;
+}
+
+// 订单服务
+service OrderService {
+    rpc CreateOrder(OrderRequest) returns (Order);
+}

@@ -124,8 +124,8 @@ Here is a sample of all techniques usage, you can use it as a template for your 
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] grpc
-- [ ] hystrix
+- [x] grpc
+- [x] hystrix
 - [ ] kratos
 - [ ] kafka
 - [ ] docker

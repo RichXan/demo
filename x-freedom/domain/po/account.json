@@ -1,0 +1,9 @@
+[{
+		"tableName": "account",
+		"primaryKey": "uid",
+		"columns:int": ["uid", "age"],
+		"columns:int8": ["status"],
+		"columns:string": ["name", "password"],
+		"columns:timestamp": ["created", "updated"]
+	}
+]
