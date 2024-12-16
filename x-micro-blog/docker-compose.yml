@@ -1,0 +1,169 @@
+version: '3.3'
+
+services:
+  # 数据库服务
+  mysql:
+    image: mysql:8.0
+    container_name: xblog-mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: x_micro_blog
+    ports:
+      - "3314:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - xblog-network
+
+  # Redis 服务
+  redis:
+    image: redis:6.2
+    container_name: xblog-redis
+    ports:
+      - "6387:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - xblog-network
+
+  # RabbitMQ 服务
+  rabbitmq:
+    image: rabbitmq:3.9-management
+    container_name: xblog-rabbitmq
+    ports:
+      - "5680:5672"
+      - "15680:15672"
+      - "15700:15692"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - xblog-network
+
+  # Prometheus 服务
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: xblog-prometheus
+    ports:
+      - "9098:9090"
+    volumes:
+      - ./deployments/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    networks:
+      - xblog-network
+
+  # Grafana 服务
+  grafana:
+    image: grafana/grafana:latest
+    container_name: xblog-grafana
+    ports:
+      - "3008:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./deployments/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./deployments/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./deployments/grafana/dashboards:/var/lib/grafana/dashboards
+    networks:
+      - xblog-network
+
+  # Node Exporter
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: xblog-node-exporter
+    ports:
+      - "9108:9100"
+    networks:
+      - xblog-network
+
+  # cAdvisor
+  cadvisor:
+    image: google/cadvisor:latest
+    container_name: xblog-cadvisor
+    ports:
+      - "8089:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    networks:
+      - xblog-network
+
+  # MySQL Exporter
+  mysql-exporter:
+    image: prom/mysqld-exporter:latest
+    container_name: xblog-mysql-exporter
+    ports:
+      - "9112:9104"
+    environment:
+      DATA_SOURCE_NAME: "root:root123@(mysql:3306)/"
+    networks:
+      - xblog-network
+
+  # Redis Exporter
+  redis-exporter:
+    image: oliver006/redis_exporter:latest
+    container_name: xblog-redis-exporter
+    ports:
+      - "9129:9121"
+    environment:
+      REDIS_ADDR: "redis:6379"
+    networks:
+      - xblog-network
+
+  # Jaeger
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: xblog-jaeger
+    ports:
+      - "5783:5775/udp"
+      - "6839:6831/udp"
+      - "6840:6832/udp"
+      - "5786:5778"
+      - "16694:16686"
+      - "14258:14250"
+      - "14276:14268"
+      - "14277:14269"
+      - "9419:9411"
+    networks:
+      - xblog-network
+
+  # Swagger UI 服务
+  swagger-ui:
+    image: swaggerapi/swagger-ui:latest
+    container_name: xblog-swagger-ui
+    ports:
+      - "9000:8080"
+    environment:
+      SWAGGER_JSON: /openapi.json
+      BASE_URL: /
+      SWAGGER_UI_BUNDLE_JS: "https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.9.0/swagger-ui-bundle.js"
+      SWAGGER_UI_STANDALONE_PRESET_JS: "https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.9.0/swagger-ui-standalone-preset.js"
+      SWAGGER_UI_CSS: "https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.9.0/swagger-ui.css"
+    volumes:
+      - ./document:/usr/share/nginx/html/doc
+    networks:
+      - xblog-network
+
+networks:
+  xblog-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+  redis_data:
+  rabbitmq_data:
+  prometheus_data:
+  grafana_data: 
