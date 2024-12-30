@@ -8,7 +8,7 @@ import (
 
 	pb "x-micro-blog/internal/micro/proto/post"
 
-	"github.com/richxan/xcommon/xlog"
+	"github.com/RichXan/xcommon/xlog"
 
 	"github.com/opentracing/opentracing-go"
 	"github.com/prometheus/client_golang/prometheus/promhttp"

@@ -5,12 +5,12 @@ go 1.22
 toolchain go1.22.10
 
 require (
+	github.com/RichXan/xcommon v0.0.0-20241230011351-6756516a0d45
 	github.com/gin-gonic/gin v1.10.0
 	github.com/golang/protobuf v1.5.4
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/prometheus/client_golang v1.16.0
 	github.com/redis/go-redis/v9 v9.7.0
-	github.com/richxan/xcommon v0.0.0-20241216063114-e37055db0c3e
 	github.com/uber/jaeger-client-go v2.30.0+incompatible
 	github.com/urfave/cli/v2 v2.3.0
 	go-micro.dev/v4 v4.10.2

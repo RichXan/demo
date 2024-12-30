@@ -10,10 +10,10 @@ import (
 	"x-micro-blog/internal/http"
 	"x-micro-blog/internal/micro/service/impl"
 
-	"github.com/richxan/xcommon/xauth"
-	"github.com/richxan/xcommon/xcache"
-	"github.com/richxan/xcommon/xdatabase"
-	"github.com/richxan/xcommon/xlog"
+	"github.com/RichXan/xcommon/xauth"
+	"github.com/RichXan/xcommon/xcache"
+	"github.com/RichXan/xcommon/xdatabase"
+	"github.com/RichXan/xcommon/xlog"
 
 	"github.com/redis/go-redis/v9"
 	"github.com/urfave/cli/v2"

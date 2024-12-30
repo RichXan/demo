@@ -3,9 +3,9 @@ package handler
 import (
 	"x-micro-blog/internal/http/handler/dto"
 
+	"github.com/RichXan/xcommon/xerror"
+	"github.com/RichXan/xcommon/xhttp"
 	"github.com/gin-gonic/gin"
-	"github.com/richxan/xcommon/xerror"
-	"github.com/richxan/xcommon/xhttp"
 )
 
 // HandleListSocialAccounts 获取社交账号列表

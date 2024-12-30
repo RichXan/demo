@@ -8,7 +8,7 @@ import (
 	"x-micro-blog/global"
 	"x-micro-blog/internal/micro/service"
 
-	"github.com/richxan/xcommon/xlog"
+	"github.com/RichXan/xcommon/xlog"
 
 	"go-micro.dev/v4"
 )

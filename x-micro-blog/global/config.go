@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/richxan/xcommon/xcache"
-	"github.com/richxan/xcommon/xdatabase"
-	"github.com/richxan/xcommon/xlog"
-	"github.com/richxan/xcommon/xutil"
+	"github.com/RichXan/xcommon/xcache"
+	"github.com/RichXan/xcommon/xdatabase"
+	"github.com/RichXan/xcommon/xlog"
+	"github.com/RichXan/xcommon/xutil"
 	"gopkg.in/yaml.v3"
 )
 

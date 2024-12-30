@@ -1,7 +1,7 @@
 package impl
 
 import (
-	"github.com/richxan/xcommon/xlog"
+	"github.com/RichXan/xcommon/xlog"
 
 	"gorm.io/gorm"
 )

@@ -9,9 +9,9 @@ import (
 	"x-micro-blog/internal/access/model"
 	"x-micro-blog/internal/micro/service"
 
-	"github.com/richxan/xcommon/xauth"
-	"github.com/richxan/xcommon/xerror"
-	"github.com/richxan/xcommon/xlog"
+	"github.com/RichXan/xcommon/xauth"
+	"github.com/RichXan/xcommon/xerror"
+	"github.com/RichXan/xcommon/xlog"
 
 	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"

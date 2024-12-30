@@ -3,7 +3,7 @@ package impl
 import (
 	"x-micro-blog/internal/micro/service"
 
-	"github.com/richxan/xcommon/xlog"
+	"github.com/RichXan/xcommon/xlog"
 
 	"gorm.io/gorm"
 )

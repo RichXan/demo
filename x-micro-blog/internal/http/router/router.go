@@ -7,8 +7,8 @@ import (
 	"x-micro-blog/internal/http/middleware"
 	"x-micro-blog/internal/micro/service"
 
-	"github.com/richxan/xcommon/xlog"
-	"github.com/richxan/xcommon/xmiddleware"
+	"github.com/RichXan/xcommon/xlog"
+	"github.com/RichXan/xcommon/xmiddleware"
 
 	"github.com/gin-gonic/gin"
 	"github.com/opentracing/opentracing-go"

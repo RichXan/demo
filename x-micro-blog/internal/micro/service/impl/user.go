@@ -9,8 +9,8 @@ import (
 	"x-micro-blog/internal/access/repo"
 	"x-micro-blog/internal/micro/service"
 
-	"github.com/richxan/xcommon/xerror"
-	"github.com/richxan/xcommon/xlog"
+	"github.com/RichXan/xcommon/xerror"
+	"github.com/RichXan/xcommon/xlog"
 
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"

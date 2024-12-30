@@ -13,8 +13,8 @@ import (
 	"x-micro-blog/internal/http/router"
 	"x-micro-blog/internal/micro/service"
 
-	"github.com/richxan/xcommon/xlog"
-	"github.com/richxan/xcommon/xutil"
+	"github.com/RichXan/xcommon/xlog"
+	"github.com/RichXan/xcommon/xutil"
 
 	"github.com/opentracing/opentracing-go"
 	jaegercfg "github.com/uber/jaeger-client-go/config"

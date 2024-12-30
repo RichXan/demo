@@ -9,8 +9,8 @@ import (
 	"x-micro-blog/global"
 	"x-micro-blog/internal/micro/service"
 
-	"github.com/richxan/xcommon/xdatabase"
-	"github.com/richxan/xcommon/xlog"
+	"github.com/RichXan/xcommon/xdatabase"
+	"github.com/RichXan/xcommon/xlog"
 	"github.com/urfave/cli/v2"
 )
 
